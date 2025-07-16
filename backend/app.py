@@ -13,7 +13,6 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 if not GROQ_API_KEY:
     raise ValueError("GROQ_API_KEY not set in .env")
 
-# You can choose: llama3-8b-8192, mixtral-8x7b-32768, gemma-7b-it
 MODEL = "llama3-8b-8192"
 
 GROQ_API_URL = f"https://api.groq.com/openai/v1/chat/completions"
