@@ -2,6 +2,8 @@ const inputBox = document.getElementById("user-input");
 const sendBtn = document.getElementById("send-btn");
 const micBtn = document.getElementById("mic-btn");
 const chatBox = document.getElementById("chat-box");
+const stopBtn = document.getElementById("stop-btn");
+
 
 let selectedVoice = null;
 
@@ -21,6 +23,18 @@ sendBtn.addEventListener("click", () => {
     sendToJarvis(msg);
   }
 });
+
+inputBox.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault(); // prevent form submit if inside a form
+    sendBtn.click(); // trigger click event of the send button
+  }
+});
+
+stopBtn.addEventListener("click", () => {
+  window.speechSynthesis.cancel(); // Immediately stops any ongoing speech
+});
+
 
 micBtn.addEventListener("click", () => {
   const recognition = new webkitSpeechRecognition(); // For Chrome
@@ -69,8 +83,9 @@ function addMessage(sender, text) {
 }
 
 function speak(text) {
+  window.speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(text);
-  utter.rate = 1.8;      // faster
+  utter.rate = 3;      // faster
   utter.pitch = 0.8;     // deeper
   utter.lang = "en-GB";  // UK English
 
